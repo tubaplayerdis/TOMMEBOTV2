@@ -23,10 +23,10 @@ competition Competition;
             //Red Ring
         }
 */
-#define BLUE_HEU_LOW 164
+#define BLUE_HEU_LOW 85
 #define BLUE_HUE_HIGH 271
 
-#define RED_HUE_EXCLUSION_LOW 22
+#define RED_HUE_EXCLUSION_LOW 51
 #define RED_HUE_EXCLUSION_HIGH 341
 
 
@@ -420,9 +420,19 @@ int visionTask() {
             if(Bot::Aliance != aliance::Blue) {
                 //bool spinFor(vex::directionType dir, double time, vex::timeUnits units, double velocity, vex::velocityUnits units_v)
                 Bot::Conveyor.spinFor(vex::directionType::rev, REVERSESECONDS, vex::timeUnits::sec, REVERSEVELOCITY, vex::velocityUnits::rpm);
-                Bot::Conveyor.setVelocity(75, vex::percent);
+                Bot::Conveyor.setVelocity(100, vex::percent);
                 Bot::Conveyor.spinFor(FORWARDSECONDS, vex::seconds);
-                Bot::Conveyor.stop();
+
+                if(Bot::Controller.ButtonL2.pressing()) {
+                    Bot::Conveyor.setVelocity(80.0, percent);
+                    Bot::Conveyor.setMaxTorque(100.0, percent);
+                    Bot::Conveyor.spin(reverse);
+                } else if(Bot::Controller.ButtonR2.pressing()) {
+                    Bot::Conveyor.setVelocity(80.0, percent);
+                    Bot::Conveyor.setMaxTorque(100.0, percent);
+                    Bot::Conveyor.spin(vex::forward);
+                }
+                //Bot::Conveyor.stop();
             }
         } else if( GV < RED_HUE_EXCLUSION_LOW && GV > RED_HUE_EXCLUSION_HIGH) {
             //Red Ring
@@ -434,7 +444,17 @@ int visionTask() {
                 Bot::Conveyor.spinFor(vex::directionType::rev, 0.25, vex::timeUnits::sec, 600, vex::velocityUnits::rpm);
                 Bot::Conveyor.setVelocity(75, vex::percent);
                 Bot::Conveyor.spinFor(FORWARDSECONDS, vex::seconds);
-                Bot::Conveyor.stop();
+
+                if(Bot::Controller.ButtonL2.pressing()) {
+                    Bot::Conveyor.setVelocity(80.0, percent);
+                    Bot::Conveyor.setMaxTorque(100.0, percent);
+                    Bot::Conveyor.spin(reverse);
+                } else if(Bot::Controller.ButtonR2.pressing()) {
+                    Bot::Conveyor.setVelocity(80.0, percent);
+                    Bot::Conveyor.setMaxTorque(100.0, percent);
+                    Bot::Conveyor.spin(vex::forward);
+                }
+                //Bot::Conveyor.stop();
             }
         }
         
