@@ -31,7 +31,7 @@ competition Competition;
 
 
 //For Throwing:
-#define REVERSESECONDS 0.25//Seconds to move the conveyor in reverse at given velocity below.
+#define REVERSESECONDS 0.5//Seconds to move the conveyor in reverse at given velocity below.
 #define REVERSEVELOCITY 600//(rpm because there is no percent option and 100% is 600 rpm)
 #define FORWARDSECONDS 0.5//Seconds to keep moving the conveyor forward after going in reverse is done.
 
@@ -418,7 +418,7 @@ int visionTask() {
             if(!Bot::Controller.ButtonA.pressing()) continue;
             //Blue Ring Detected
             if(Bot::Aliance != aliance::Blue) {
-                //bool spinFor(vex::directionType dir, double time, vex::timeUnits units, double velocity, vex::velocityUnits units_v)
+                vex::this_thread::sleep_for(500);
                 Bot::Conveyor.spinFor(vex::directionType::rev, REVERSESECONDS, vex::timeUnits::sec, REVERSEVELOCITY, vex::velocityUnits::rpm);
                 Bot::Conveyor.setVelocity(100, vex::percent);
                 Bot::Conveyor.spinFor(FORWARDSECONDS, vex::seconds);
@@ -441,6 +441,7 @@ int visionTask() {
             if(!Bot::Controller.ButtonA.pressing()) continue;
             //Red Ring Detected
             if(Bot::Aliance != aliance::Red) {
+                vex::this_thread::sleep_for(500);
                 Bot::Conveyor.spinFor(vex::directionType::rev, 0.25, vex::timeUnits::sec, 600, vex::velocityUnits::rpm);
                 Bot::Conveyor.setVelocity(75, vex::percent);
                 Bot::Conveyor.spinFor(FORWARDSECONDS, vex::seconds);
